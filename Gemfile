@@ -52,4 +52,5 @@ group :production do
 end
 
 gem 'sorcery'
+gem 'jsonapi-serializer'
 
