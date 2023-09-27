@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = ::User.new(user_params)
 
     if @user.save
       json_string = UserSerializer.new(@user).serializable_hash.to_json

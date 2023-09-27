@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  has_many :api_keys
-  has_many :illustrated_books
+  has_many :api_keys, dependent: :destroy
+  has_many :illustrated_books, dependent: :destroy
 
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[crypted_password] }
