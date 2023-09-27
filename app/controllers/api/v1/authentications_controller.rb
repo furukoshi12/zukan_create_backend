@@ -1,19 +1,7 @@
 class Api::V1::AuthenticationsController < ApplicationController
-  skip_before_action :authenticate
+  skip_before_action :authenticate, only: %i[create]
 
-  def signup
-    @user = User.new(user_params)
-
-    if @user.save
-      json_string = UserSerializer.new(@user).serializable_hash.to_json
-      set_access_token!(@user)
-      render json: json_string
-    else
-      render_400(nil, @user.errors.full_messages)
-    end
-  end
-
-  def login
+  def create
     @user = login(params[:email], params[:password])
 
     render_400(nil, @user.errors.full_messages) unless @user
