@@ -7,7 +7,13 @@ Rails.application.routes.draw do
       post '/guest_login', to: 'authentications#guest_login'
 
       resources :users, only: %i[index show update destroy]
-      resources :illustrated_books, only: %i[index show create update destroy]
+      resources :illustrated_books, only: %i[index show]
+
+      resource :user, only: [] do
+        scope module: :user do
+          resources :illustrated_books, only: %i[create update destroy]
+        end
+      end
     end
   end
 end
