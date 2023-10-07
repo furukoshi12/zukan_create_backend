@@ -26,5 +26,6 @@ module ZukanCreateBackend
 
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_interslice_session'
+    config.middleware.use Rack::Cors
   end
 end
