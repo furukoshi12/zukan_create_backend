@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post '/login', to: 'authentications#create'
       delete '/logout', to: 'authentications#logout'
       post '/guest_login', to: 'authentications#guest_login'
+      get '/current_user', to: 'users#current_user_info'
 
       resources :users, only: %i[index show update destroy]
       resources :illustrated_books, only: %i[index show]
