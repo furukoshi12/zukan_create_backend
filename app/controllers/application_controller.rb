@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
 
   def set_access_token!(user)
     api_key = user.activate_api_key!
-    response.headers['AccessToken'] = api_key.access_token
+    response.headers['access-token'] = api_key.access_token
   end
 
   private

@@ -11,8 +11,8 @@ class Api::V1::UsersController < ApplicationController
     @user = ::User.new(user_params)
 
     if @user.save
-      json_string = UserSerializer.new(@user).serializable_hash.to_json
-      set_access_token!(@user)
+      json_string = UserSerializer.new(@user).serializable_hash.merge(access_token: access_token).to_json
+      auto_login(@user)
       render json: json_string
     else
       render_400(nil, @user.errors.full_messages)
@@ -39,9 +39,21 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def current_user_info
+    if logged_in?
+      render json: current_user, status: :ok
+    else
+      render json: { message: 'User not found' }, status: :not_found
+    end
+  end
+
   private
 
   def set_user
     @user = User.find_by_id(params[:id])
+  end
+
+  def logged_in?
+    current_user.present?
   end
 end

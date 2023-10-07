@@ -4,11 +4,13 @@ class Api::V1::AuthenticationsController < ApplicationController
   def create
     @user = login(params[:email], params[:password])
 
-    render_400(nil, @user.errors.full_messages) unless @user
-
-    json_string = UserSerializer.new(@user).serializable_hash.to_json
-    set_access_token!(@user)
-    render json: json_string
+    if @user
+      access_token = @user.activate_api_key!.access_token
+      json_string = UserSerializer.new(@user).serializable_hash.merge(access_token: access_token).to_json
+      render json: json_string
+    else
+      render_400(nil, @user.errors.full_messages)
+    end
   end
 
   def guest_login
@@ -19,9 +21,9 @@ class Api::V1::AuthenticationsController < ApplicationController
       password_confirmation: 'password'
     )
     if @guest_user.persisted?
+      access_token = @guest_user.activate_api_key!.access_token
+      json_string = UserSerializer.new(@guest_user).serializable_hash.merge(access_token: access_token).to_json
       auto_login(@guest_user)
-      json_string = UserSerializer.new(@guest_user).serializable_hash.to_json
-      set_access_token!(@guest_user)
       render json: json_string
     else
       render_400(nil, @guest_user.errors.full_messages)
