@@ -1,5 +1,13 @@
 class Api::V1::User::IllustratedBooksController < ApplicationController
-  before_action :set_illustrated_book, only: %i[update destroy]
+  before_action :set_illustrated_books, only: %i[index]
+  before_action :set_illustrated_book, only: %i[show update destroy]
+
+  def index
+    json_string = IllustratedBookSerializer.new(@illustrated_books).serializable_hash.to_json
+    render json: json_string
+  end
+
+  def show; end
 
   def create
     illustrated_book = current_user.illustrated_books.new(illustrated_book_params)
