@@ -11,7 +11,8 @@ class Api::V1::UsersController < ApplicationController
     @user = ::User.new(user_params)
 
     if @user.save
-      json_string = UserSerializer.new(@user).serializable_hash.merge(access_token: access_token).to_json
+      json_string = UserSerializer.new(@user).serializable_hash.to_json
+      set_access_token!(@user)
       auto_login(@user)
       render json: json_string
     else
@@ -51,6 +52,10 @@ class Api::V1::UsersController < ApplicationController
 
   def set_user
     @user = User.find_by_id(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :name)
   end
 
   def logged_in?
