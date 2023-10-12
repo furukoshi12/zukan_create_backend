@@ -53,4 +53,4 @@ end
 
 gem 'sorcery'
 gem 'jsonapi-serializer'
-
+gem 'byebug'

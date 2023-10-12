@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       resource :user, only: [] do
         scope module: :user do
-          resources :illustrated_books, only: %i[create update destroy]
+          resources :illustrated_books
         end
       end
     end
