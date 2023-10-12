@@ -34,10 +34,4 @@ class Api::V1::AuthenticationsController < ApplicationController
     logout
     render json: { message: 'Logged out' }
   end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :name)
-  end
 end
