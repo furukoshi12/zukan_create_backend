@@ -12,7 +12,7 @@ class Api::V1::IllustratedBooksController < ApplicationController
     json_string = IllustratedBookSerializer.new(@illustrated_book, options).serializable_hash.to_json
     render json: json_string
   end
-
+  
   private
 
   def set_illustrated_book
