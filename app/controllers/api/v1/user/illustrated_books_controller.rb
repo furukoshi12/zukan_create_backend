@@ -36,6 +36,12 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
     render json: json_string
   end
 
+  def likes
+    likes = current_user.like_illustrated_books.includes(:user).order(created_at: :desc)
+    json_string = IllustratedBookSerializer.new(likes).serializable_hash.to_json
+    render json: json_string
+  end
+
   private
 
   def set_illustrated_book
