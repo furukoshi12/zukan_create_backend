@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'likes/create'
-  get 'likes/destroy'
   namespace :api, format: 'json' do
     namespace :v1 do
       post '/signup', to: 'users#create'
@@ -11,15 +9,14 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[index show update destroy]
       resources :illustrated_books, only: %i[index show]
-      resources :likes, only: %i[create destroy]
+      resources :likes, only: %i[create show]
 
       resource :user, only: [] do
         scope module: :user do
-          resources :illustrated_books do
+          resources :illustrated_books
             collection do
-              get :likes
+              get '/likes', to: 'illustrated_books#likes'
             end
-          end
         end
       end
     end
