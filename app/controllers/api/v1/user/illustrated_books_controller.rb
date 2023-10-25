@@ -7,7 +7,10 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
     render json: json_string
   end
 
-  def show; end
+  def show
+    json_string = IllustratedBookSerializer.new(@illustrated_book).serializable_hash.to_json
+    render json: json_string
+  end
 
   def create
     illustrated_book = current_user.illustrated_books.new(illustrated_book_params)
@@ -37,7 +40,7 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def likes
-    likes = current_user.like_illustrated_books.includes(:user).order(created_at: :desc)
+    likes = current_user.like_illustrated_books
     json_string = IllustratedBookSerializer.new(likes).serializable_hash.to_json
     render json: json_string
   end
