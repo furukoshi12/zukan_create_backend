@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_150002) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_25_160401) do
   create_table "api_keys", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "access_token", null: false
@@ -19,6 +19,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_150002) do
     t.datetime "updated_at", null: false
     t.index ["access_token"], name: "index_api_keys_on_access_token", unique: true
     t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
+
+  create_table "illustrated_book_tags", force: :cascade do |t|
+    t.integer "illustrated_book_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["illustrated_book_id"], name: "index_illustrated_book_tags_on_illustrated_book_id"
+    t.index ["tag_id"], name: "index_illustrated_book_tags_on_tag_id"
   end
 
   create_table "illustrated_books", force: :cascade do |t|
@@ -40,6 +49,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_150002) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -51,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_150002) do
   end
 
   add_foreign_key "api_keys", "users"
+  add_foreign_key "illustrated_book_tags", "illustrated_books"
+  add_foreign_key "illustrated_book_tags", "tags"
   add_foreign_key "illustrated_books", "users"
   add_foreign_key "likes", "illustrated_books"
   add_foreign_key "likes", "users"
