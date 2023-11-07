@@ -14,11 +14,12 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
 
   def create
     illustrated_book = current_user.illustrated_books.new(illustrated_book_params)
-    tags = params[:tags].split(' ')
+    tag_names = params[:tags].split(' ')
 
     if illustrated_book.save
-      tags.each do |tag|
-        illustrated_book.tags.create(name: tag)
+      tag_names.each do |name|
+        tag = Tag.find_or_create_by(name: name)
+        illustrated_book.tags << tag
       end
 
       json_string = IllustratedBookSerializer.new(illustrated_book).serializable_hash.to_json
