@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'templates/index'
+  get 'templates/create'
+  get 'templates/edit'
+  get 'templates/destroy'
+  get 'field_designs/index'
   namespace :api do
     namespace :v1 do
       get 'tags/index'
@@ -16,7 +21,9 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show update destroy]
       resources :illustrated_books, only: %i[index show]
       resources :likes, only: %i[create show]
-      resources :tags, only: [:index]
+      resources :tags, only: %i[index]
+      resources :field_designs, only: %i[index create update destroy]
+      resources :templates, only: %i[index create update destroy]
 
       resource :user, only: [] do
         scope module: :user do
