@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_25_160401) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_19_134839) do
   create_table "api_keys", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "access_token", null: false
@@ -19,6 +19,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_160401) do
     t.datetime "updated_at", null: false
     t.index ["access_token"], name: "index_api_keys_on_access_token", unique: true
     t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
+
+  create_table "field_designs", force: :cascade do |t|
+    t.integer "label"
+    t.integer "background_color"
+    t.integer "color"
+    t.integer "border_color"
+    t.integer "border_style"
+    t.integer "border_radius"
+    t.integer "font_family"
+    t.integer "font_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "illustrated_book_field_designs", force: :cascade do |t|
+    t.text "content"
+    t.integer "illustrated_book_id", null: false
+    t.integer "fielg_design_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fielg_design_id"], name: "index_illustrated_book_field_designs_on_fielg_design_id"
+    t.index ["illustrated_book_id"], name: "index_illustrated_book_field_designs_on_illustrated_book_id"
   end
 
   create_table "illustrated_book_tags", force: :cascade do |t|
@@ -36,6 +59,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_160401) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "template_id", null: false
+    t.string "image"
+    t.index ["template_id"], name: "index_illustrated_books_on_template_id"
     t.index ["user_id"], name: "index_illustrated_books_on_user_id"
   end
 
@@ -55,6 +81,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_160401) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "template_field_designs", force: :cascade do |t|
+    t.integer "template_id", null: false
+    t.integer "field_design_id", null: false
+    t.integer "x_position"
+    t.integer "y_posisiton"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_design_id"], name: "index_template_field_designs_on_field_design_id"
+    t.index ["template_id"], name: "index_template_field_designs_on_template_id"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.integer "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -62,13 +105,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_160401) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "api_keys", "users"
+  add_foreign_key "illustrated_book_field_designs", "fielg_designs"
+  add_foreign_key "illustrated_book_field_designs", "illustrated_books"
   add_foreign_key "illustrated_book_tags", "illustrated_books"
   add_foreign_key "illustrated_book_tags", "tags"
+  add_foreign_key "illustrated_books", "templates"
   add_foreign_key "illustrated_books", "users"
   add_foreign_key "likes", "illustrated_books"
   add_foreign_key "likes", "users"
+  add_foreign_key "template_field_designs", "field_designs"
+  add_foreign_key "template_field_designs", "templates"
 end
