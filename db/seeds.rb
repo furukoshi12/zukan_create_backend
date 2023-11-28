@@ -17,6 +17,7 @@ end
 5.times do |n|
   IllustratedBook.create!(
     title: "title#{n}",
-    user_id: 1
+    user_id: 1,
+    template_id: 1
     )
 end
