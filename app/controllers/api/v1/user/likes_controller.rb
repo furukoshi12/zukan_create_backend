@@ -1,4 +1,10 @@
-class Api::V1::LikesController < ApplicationController
+class Api::V1::User::LikesController < ApplicationController
+
+  def index
+    likes = current_user.like_illustrated_books
+    json_string = IllustratedBookSerializer.new(likes).serializable_hash.to_json
+    render json: json_string
+  end
 
   def show
     illustrated_book_id = params[:id]
