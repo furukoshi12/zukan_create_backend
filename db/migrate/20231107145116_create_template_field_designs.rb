@@ -4,7 +4,7 @@ class CreateTemplateFieldDesigns < ActiveRecord::Migration[7.0]
       t.references :template, null: false, foreign_key: true
       t.references :field_design, null: false, foreign_key: true
       t.integer :x_position
-      t.integer :y_posisiton
+      t.integer :y_position
 
       t.timestamps
     end

@@ -56,6 +56,6 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def illustrated_book_params
-    params.require(:illustrated_book).permit(:title).merge(user_id: current_user.id)
+    params.require(:illustrated_book).permit(:title, :template_id).merge(user_id: current_user.id)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_134839) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_07_082453) do
   create_table "api_keys", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "access_token", null: false
@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_134839) do
     t.integer "template_id", null: false
     t.integer "field_design_id", null: false
     t.integer "x_position"
-    t.integer "y_posisiton"
+    t.integer "y_position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["field_design_id"], name: "index_template_field_designs_on_field_design_id"
@@ -93,7 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_134839) do
   end
 
   create_table "templates", force: :cascade do |t|
-    t.integer "name"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

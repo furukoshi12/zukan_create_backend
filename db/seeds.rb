@@ -14,6 +14,8 @@
     )
 end
 
+Template.create(name: "temp1")
+
 5.times do |n|
   IllustratedBook.create!(
     title: "title#{n}",
