@@ -11,7 +11,7 @@ class Api::V1::FieldDesignsController < ApplicationController
       json_string = FieldDesignSerializer.new(field_design).serializable_hash.to_json
       render json: json_string
     else
-      render_400(nil, illustrated_book.errors.full_messages)
+      render_400(nil, field_design.errors.full_messages)
     end
   end
 
@@ -25,6 +25,6 @@ class Api::V1::FieldDesignsController < ApplicationController
   private
 
   def field_params
-    params.require(:field_design).permit(:label, :background_color, :color, :border_color, :border_style, :border_radius, :font_family, :font_size)
+    params.require(:field_design).permit(:uuid, :label, :background_color, :color, :border_color, :border_style, :border_radius, :font_family, :font_size)
   end
 end
