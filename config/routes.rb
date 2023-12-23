@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :illustrated_books, only: %i[index show]
       resources :tags, only: %i[index]
       resources :field_designs, only: %i[index create update destroy]
-      resources :templates, only: %i[index create update destroy]
+      resources :templates, only: %i[index create show update destroy]
 
       resource :user, only: [] do
         scope module: :user do
