@@ -25,7 +25,7 @@ class Api::V1::TemplatesController < ApplicationController
   private
 
   def template_params
-    params.require(:template).permit(:name, template_field_designs_attributes: [:field_design_id, :x_position, :y_position])
+    params.require(:template).permit(:name, template_field_designs_attributes: [:field_design_id, :x_position, :y_position, :width, :height])
   end
 
   def options

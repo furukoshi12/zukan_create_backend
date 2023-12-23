@@ -25,6 +25,6 @@ class Api::V1::FieldDesignsController < ApplicationController
   private
 
   def field_params
-    params.require(:field_design).permit(:uuid, :label, :background_color, :color, :border_color, :border_style, :border_radius, :font_family, :font_size)
+    params.require(:field_design).permit(:label, :background_color, :color, :border_color, :border_style, :border_radius, :font_family, :font_size)
   end
 end
