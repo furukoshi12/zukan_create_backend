@@ -6,4 +6,6 @@ class IllustratedBook < ApplicationRecord
   has_many :tags, through: :illustrated_book_tags
   has_many :illustrated_book_field_designs, dependent: :destroy
   has_many :field_designs, through: :illustrated_book_field_designs
+
+  accepts_nested_attributes_for :illustrated_book_field_designs
 end
