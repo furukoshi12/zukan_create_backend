@@ -37,10 +37,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_18_145334) do
   create_table "illustrated_book_field_designs", force: :cascade do |t|
     t.text "content"
     t.integer "illustrated_book_id", null: false
-    t.integer "fielg_design_id", null: false
+    t.integer "field_design_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fielg_design_id"], name: "index_illustrated_book_field_designs_on_fielg_design_id"
+    t.index ["field_design_id"], name: "index_illustrated_book_field_designs_on_field_design_id"
     t.index ["illustrated_book_id"], name: "index_illustrated_book_field_designs_on_illustrated_book_id"
   end
 
@@ -112,7 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_18_145334) do
   end
 
   add_foreign_key "api_keys", "users"
-  add_foreign_key "illustrated_book_field_designs", "fielg_designs"
+  add_foreign_key "illustrated_book_field_designs", "field_designs"
   add_foreign_key "illustrated_book_field_designs", "illustrated_books"
   add_foreign_key "illustrated_book_tags", "illustrated_books"
   add_foreign_key "illustrated_book_tags", "tags"

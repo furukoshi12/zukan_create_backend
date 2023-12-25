@@ -3,9 +3,9 @@
 one:
   content: MyText
   illustrated_book: one
-  fielg_design: one
+  field_design: one
 
 two:
   content: MyText
   illustrated_book: two
-  fielg_design: two
+  field_design: two
