@@ -8,7 +8,7 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def show
-    json_string = IllustratedBookSerializer.new(@illustrated_book).serializable_hash.to_json
+    json_string = IllustratedBookSerializer.new(@illustrated_book, options).serializable_hash.to_json
     render json: json_string
   end
 
@@ -56,6 +56,12 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def illustrated_book_params
-    params.require(:illustrated_book).permit(:title, :template_id, illustrated_book_field_designs_attributes: [:field_design_id, :content]).merge(user_id: current_user.id)
+    params.require(:illustrated_book).permit(:title, :template_id, illustrated_book_field_designs_attributes: [:field_design_id, :content, :height, :width, :x_position, :y_position]).merge(user_id: current_user.id)
+  end
+
+  def options
+    options = {}
+    options[:include] = [:user]
+    options
   end
 end

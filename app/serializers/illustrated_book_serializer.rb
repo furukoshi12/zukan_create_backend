@@ -15,7 +15,11 @@ class IllustratedBookSerializer
     object.illustrated_book_field_designs.map do |illustrated_book_field_design|
       {
         field_design_id: illustrated_book_field_design.field_design_id,
-        content: illustrated_book_field_design.content
+        content: illustrated_book_field_design.content,
+        height: illustrated_book_field_design.height,
+        width: illustrated_book_field_design.width,
+        x_position: illustrated_book_field_design.x_position,
+        y_position: illustrated_book_field_design.y_position
       }
     end
   end

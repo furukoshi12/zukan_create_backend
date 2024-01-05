@@ -1,9 +1,14 @@
 class Api::V1::FieldDesignsController < ApplicationController
   before_action :set_field_designs, only: %i[index]
-  before_action :set_field_design, only: %i[update destroy]
+  before_action :set_field_design, only: %i[show update destroy]
 
   def index
     render json: FieldDesignSerializer.new(@field_designs).serializable_hash.to_json
+  end
+
+  def show
+    json_string = FieldDesignSerializer.new(@field_design).serializable_hash.to_json
+    render json: json_string
   end
 
   def create
