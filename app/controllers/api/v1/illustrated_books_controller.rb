@@ -9,7 +9,7 @@ class Api::V1::IllustratedBooksController < ApplicationController
   end
 
   def show
-    json_string = IllustratedBookSerializer.new(@illustrated_book, options).serializable_hash.to_json
+    json_string = IllustratedBookSerializer.new(@illustrated_book).serializable_hash.to_json
     render json: json_string
   end
   
@@ -17,11 +17,5 @@ class Api::V1::IllustratedBooksController < ApplicationController
 
   def set_illustrated_book
     @illustrated_book = IllustratedBook.find(params[:id])
-  end
-
-  def options
-    options = {}
-    options[:include] = [:user]
-    options
   end
 end
