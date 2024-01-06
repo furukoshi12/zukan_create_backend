@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_03_051929) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_06_074736) do
   create_table "api_keys", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "access_token", null: false
@@ -65,6 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_051929) do
     t.datetime "updated_at", null: false
     t.integer "template_id", null: false
     t.string "image"
+    t.float "image_x_position"
+    t.float "image_y_position"
     t.index ["template_id"], name: "index_illustrated_books_on_template_id"
     t.index ["user_id"], name: "index_illustrated_books_on_user_id"
   end
