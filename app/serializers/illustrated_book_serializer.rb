@@ -1,6 +1,6 @@
 class IllustratedBookSerializer
   include JSONAPI::Serializer
-  attributes :title
+  attributes :title, :image, :image_x_position, :image_y_position
   set_key_transform :camel_lower
   
   belongs_to :user

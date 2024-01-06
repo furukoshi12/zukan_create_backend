@@ -54,3 +54,5 @@ end
 gem 'sorcery'
 gem 'jsonapi-serializer'
 gem 'byebug'
+gem 'carrierwave'
+gem 'mini_magick'
