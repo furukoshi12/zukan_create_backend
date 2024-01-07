@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[index show update destroy]
       resources :illustrated_books, only: %i[index show]
-      resources :tags, only: %i[index]
+      resources :tags, only: %i[index destroy]
       resources :field_designs, only: %i[index create show update destroy]
       resources :templates, only: %i[index create show update destroy]
 

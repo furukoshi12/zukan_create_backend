@@ -3,8 +3,11 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   before_action :set_illustrated_book, only: %i[show update destroy]
 
   def index
-    json_string = IllustratedBookSerializer.new(@illustrated_books).serializable_hash.to_json
-    render json: json_string
+    if params[:search].present?
+      @illustrated_books = current_user.illustrated_books.includes(:tags).where("illustrated_books.title LIKE ? OR tags.name LIKE ?", search_term, search_term).references(:tags).order('illustrated_books.created_at DESC')
+    end
+      json_string = IllustratedBookSerializer.new(@illustrated_books).serializable_hash.to_json
+      render json: json_string
   end
 
   def show
@@ -52,7 +55,7 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def set_illustrated_books
-    @illustrated_books = current_user.illustrated_books
+    @illustrated_books = current_user.illustrated_books.order('created_at DESC')
   end
 
   def illustrated_book_params
