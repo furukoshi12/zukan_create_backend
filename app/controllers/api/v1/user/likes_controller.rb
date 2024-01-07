@@ -1,7 +1,7 @@
 class Api::V1::User::LikesController < ApplicationController
 
   def index
-    likes = current_user.like_illustrated_books
+    likes = current_user.like_illustrated_books.order('illustrated_books.created_at DESC')
     json_string = IllustratedBookSerializer.new(likes).serializable_hash.to_json
     render json: json_string
   end
