@@ -59,7 +59,7 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def illustrated_book_params
-    params.require(:illustrated_book).permit(:title, :image, :image_x_position, :image_y_position, :template_id, illustrated_book_field_designs_attributes: [:field_design_id, :content, :height, :width, :x_position, :y_position]).merge(user_id: current_user.id)
+    params.require(:illustrated_book).permit(:title, :image, :image_x_position, :image_y_position, :template_id, illustrated_book_field_designs_attributes: [:id, :field_design_id, :content, :height, :width, :x_position, :y_position]).merge(user_id: current_user.id)
   end
 
   def options
