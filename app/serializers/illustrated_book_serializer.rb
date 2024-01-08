@@ -14,6 +14,7 @@ class IllustratedBookSerializer
   attribute :illustrated_book_field_designs do |object|
     object.illustrated_book_field_designs.map do |illustrated_book_field_design|
       {
+        id: illustrated_book_field_design.id,
         field_design_id: illustrated_book_field_design.field_design_id,
         content: illustrated_book_field_design.content,
         height: illustrated_book_field_design.height,
