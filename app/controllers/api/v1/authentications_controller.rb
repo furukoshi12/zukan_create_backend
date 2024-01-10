@@ -1,5 +1,5 @@
 class Api::V1::AuthenticationsController < ApplicationController
-  skip_before_action :authenticate, only: %i[create]
+  skip_before_action :authenticate, only: %i[create guest_login]
 
   def create
     @user = login(params[:email], params[:password])
@@ -17,6 +17,7 @@ class Api::V1::AuthenticationsController < ApplicationController
     @guest_user = User.create(
       name: 'guest',
       email: SecureRandom.alphanumeric(10) + "@example.com",
+      role: 'guest',
       password: 'password',
       password_confirmation: 'password'
     )
