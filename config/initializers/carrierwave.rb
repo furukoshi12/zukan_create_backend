@@ -13,7 +13,7 @@ CarrierWave.configure do |config|
       region: 'ap-northeast-1'
     }
     config.fog_directory  = 'zukan-create'
-    config.asset_host = ENV.fetch('ASSET_HOST', 'https://s3-ap-northeast-1.amazonaws.com/zukan-create')
+    config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/zukan-create'
   else
     config.asset_host = ENV.fetch('ASSET_HOST', 'http://localhost:3001')
     config.storage = :file
