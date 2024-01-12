@@ -7,11 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "localhost:3000", "www.illustrated-books-create.com"
+    origins "localhost:3000", "www.illustrated-books-create.com", "zukan-create-frontend-42273e4573ec.herokuapp.com"
 
     resource "*",
       headers: :any,
-      expose: ['access-token'],
+      expose: ['access_token'],
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
   end
