@@ -16,24 +16,25 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
   end
 
   def create
-    illustrated_book = current_user.illustrated_books.new(illustrated_book_params)
-    tag_names = params[:tags].split(' ')
+    @illustrated_book = current_user.illustrated_books.new(illustrated_book_params)
+    tag_names = params[:tags]&.split(' ')
 
-    if illustrated_book.save
-      tag_names.each do |name|
-        tag = Tag.find_or_create_by(name: name)
-        illustrated_book.tags << tag
-      end
+    if @illustrated_book.save
+      @illustrated_book.create_tags(tag_names)
 
-      json_string = IllustratedBookSerializer.new(illustrated_book).serializable_hash.to_json
+      json_string = IllustratedBookSerializer.new(@illustrated_book).serializable_hash.to_json
       render json: json_string
     else
-      render_400(nil, illustrated_book.errors.full_messages)
+      render_400(nil, @illustrated_book.errors.full_messages)
     end
   end
 
   def update
+    tag_names = params[:tags]&.split(' ')
+
     if @illustrated_book.update(illustrated_book_params)
+      @illustrated_book.update_tags(tag_names)
+
       json_string = IllustratedBookSerializer.new(@illustrated_book).serializable_hash.to_json
       render json: json_string
     else
