@@ -4,6 +4,7 @@ class Api::V1::User::IllustratedBooksController < ApplicationController
 
   def index
     if params[:search].present?
+      search_term = "%#{params[:search]}%"
       @illustrated_books = current_user.illustrated_books.includes(:tags).where("illustrated_books.title LIKE ? OR tags.name LIKE ?", search_term, search_term).references(:tags).order('illustrated_books.created_at DESC')
     end
       json_string = IllustratedBookSerializer.new(@illustrated_books).serializable_hash.to_json
